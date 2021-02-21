@@ -1,0 +1,38 @@
+
+*{
+    background-color: #95B9C7;
+}
+
+
+
+#first-image{
+    width: 450px;
+    height: 450px;
+    padding: 26px;
+}
+
+
+#second-image{
+    width: 450px;
+    height: 450px;
+    padding: 26px;
+
+}
+
+#third-image{
+    width: 450px;
+    height: 450px;
+    padding: 26px;
+
+}
+
+#images-div{
+    display: inline-block;
+    margin-top: 100px;
+    /* padding: 70px; */
+}
+
+ul{
+    float: right;
+    font-size: 40px;
+}
