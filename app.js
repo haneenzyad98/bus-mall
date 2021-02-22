@@ -9,6 +9,10 @@ let thImageIndex ;
 let attemptscounter=0;
 let maxattempts=25;
 // let count=0;
+let nameofimg=[];
+let voteofimg=[];
+let showofimg=[];
+let arrayOf=[];
 
 function TheImage(name, source) {
     this.name = name;
@@ -16,6 +20,9 @@ function TheImage(name, source) {
     this.votes = 0;
     TheImage.allimg.push(this);
     this.count=0;
+    nameofimg.push(name);
+    // console.log(nameofimg);
+
   }
 TheImage.allimg=[]
 
@@ -45,36 +52,62 @@ TheImage.allimg=[]
       return Math.floor( Math.random() * TheImage.allimg.length);
     }
     
+    //  let newx=[];
+    //     let returnt;
     function randerdthreeimg (){
+      // console.log('new array' + newx)
+      fImageIndex =randominex();
+      do{
+        sImageIndex=randominex();
+        thImageIndex=randominex();
+        // let z=[];
+        // let x=[]; 
+       
+      //  x.push(fImageIndex,sImageIndex,thImageIndex)
+      //  //console.log('olde array'+x)
+      //  z.push(fImageIndex,sImageIndex,thImageIndex)
+      //   console.log('constant arry' + z)
+     
+      //  for(let i=0;i<x.length;i++){
+      //      newx.push(x[i])
+      //      }console.log('new array'+newx)
+     
+      //      function checkrep(){
+      //        for(let j=0;j<newx.length;j++){ 
+      //          for(let i=0;i<z.length;i++){
+      //            if(z[i]===newx[j]){
+      //              returnt= true;
+      //            }else{
+      //              returnt= false;
+      //            }}}
+      //            newx.pop();
+      //            newx.pop();
+      //            newx.pop();}
+      //            console.log('plaplapla'+checkrep())
+      //             checkrep();
+
+    }while((fImageIndex === sImageIndex)||(fImageIndex===thImageIndex)||(sImageIndex===thImageIndex))
         
-        fImageIndex =randominex();
-        // sImageIndex =randominex();
-        // thImageIndex =randominex();
         
         
-        do{
-            sImageIndex=randominex();
-            thImageIndex=randominex();
-            // fImageIndex=randominex();
-            
-            
-        }while((fImageIndex === sImageIndex)||(fImageIndex===thImageIndex)||(sImageIndex===thImageIndex)) 
         
         TheImage.allimg
-        
-           TheImage.allimg[ fImageIndex].count++
-           TheImage.allimg[ sImageIndex].count++
-           TheImage.allimg[ sImageIndex].count++
-   console.log( TheImage.allimg[fImageIndex]);
-   console.log( TheImage.allimg[sImageIndex]);
-   console.log( TheImage.allimg[thImageIndex]);
+        firstimage.src=TheImage.allimg[fImageIndex].source;
+        TheImage.allimg[ fImageIndex].count++;
+        secandimage.src=TheImage.allimg[sImageIndex].source;
+        TheImage.allimg[ sImageIndex].count++;
+        theardimage.src=TheImage.allimg[thImageIndex].source;
+        TheImage.allimg[ thImageIndex].count++;
 
-   firstimage.src=TheImage.allimg[fImageIndex].source;
-   secandimage.src=TheImage.allimg[sImageIndex].source;
-   theardimage.src=TheImage.allimg[thImageIndex].source;}
 
-   randerdthreeimg();
-//-----------------------------------------------------------
+        arrayOf[0] = fImageIndex;
+        arrayOf[1] = sImageIndex;
+        arrayOf[2] = thImageIndex; 
+    }
+    randerdthreeimg();
+
+ 
+    //-----------------------------------------------------------
 
    firstimage.addEventListener('click',userclick);
    secandimage.addEventListener('click',userclick);
@@ -111,4 +144,48 @@ gotresult.textContent=TheImage.allimg[j].name +'    '+ 'has'+'    '+'' +TheImage
 firstimage.removeEventListener('click',userclick)
 secandimage.removeEventListener('click',userclick)
 theardimage.removeEventListener('click',userclick)
+
+for (let i=0;i<TheImage.allimg.length;i++){
+    voteofimg.push(TheImage.allimg[i].votes);
+    showofimg.push(TheImage.allimg[i].count);
+    
+}
+viewChart();
 }}
+
+//--------chart---------
+function viewChart() {
+
+    let ctx = document.getElementById('myChart').getContext('2d');
+  
+    let chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'bar',
+  
+      // The data for our dataset
+      data: {
+        labels: nameofimg,
+  
+        datasets: [
+          {
+            label: 'Goat votes',
+            backgroundColor: '#0C090A',
+            borderColor: '#0C090A',
+            data: voteofimg
+          },
+          
+          {
+            label: 'Goat shown',
+            backgroundColor: '#FBB117',
+            borderColor: '#FBB117',
+            data: showofimg
+          },
+     
+  
+        ]
+      },
+    
+      options: {}
+    });
+  
+}
