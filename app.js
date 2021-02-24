@@ -14,6 +14,7 @@ let nameofimg = [];
 let voteofimg = [];
 let showofimg = [];
 let data;
+let oldindex=[];
 
 
 function TheImage(name, source) {
@@ -30,12 +31,19 @@ TheImage.allimg = []
 
 
 
-function getitem() {
-  let stringObject = localStorage.getItem("pdata");
-  let normaldata = JSON.parse(stringObject);
-  TheImage.allimg = normaldata
+function settingitem(){
+  data=JSON.stringify(TheImage.allimg)
+  localStorage.setItem('product',data);
 }
-// getitem()
+
+
+function getitem() {
+let strobj=localStorage.getItem('product');
+if (strobj){TheImage.allimg=JSON.parse(strobj)
+ }
+ 
+}
+
 
 
 new TheImage('bag', 'images/bag.jpg');
@@ -59,44 +67,29 @@ new TheImage('usb', 'images/usb.gif');
 new TheImage('water-can', 'images/water-can.jpg');
 new TheImage('wine-glass', 'images/wine-glass.jpg');
 
-// function settingitem(){
-//   data=JSON.stringify(TheImage.allimg)
-//   localStorage.setItem("pdata",data);
-// }
-// settingitem()
 
 
 function randominex() {
   return Math.floor(Math.random() * TheImage.allimg.length);
 }
-
-let prefimg=Math.floor(Math.random()*TheImage.allimg.length)
-let presimg=Math.floor(Math.random()*TheImage.allimg.length)
-let prethimg=Math.floor(Math.random()*TheImage.allimg.length)
-console.log(prefimg,presimg,prethimg)
 function randerdthreeimg() {
+ do{ fImageIndex = randominex();
+  sImageIndex = randominex();
+  thImageIndex = randominex();
   
-  do{fImageIndex = randominex();
-    }while( fImageIndex === prefimg || fImageIndex === presimg || fImageIndex === prethimg)
+}while( (fImageIndex ===sImageIndex || fImageIndex === thImageIndex || sImageIndex === thImageIndex)
+||oldindex.includes(fImageIndex)||oldindex.includes(sImageIndex)||oldindex.includes(thImageIndex));
 
-    do{thImageIndex = randominex();
-    }while( thImageIndex === fImageIndex ||thImageIndex === prefimg ||
-       thImageIndex === presimg || thImageIndex === prethimg)
+TheImage.allimg
+firstimage.src = TheImage.allimg[fImageIndex].source;
+TheImage.allimg[fImageIndex].count++;
+secandimage.src = TheImage.allimg[sImageIndex].source;
+TheImage.allimg[sImageIndex].count++;
+theardimage.src = TheImage.allimg[thImageIndex].source;
+TheImage.allimg[thImageIndex].count++;
 
- do{sImageIndex = randominex();
-    }while(sImageIndex === fImageIndex  || sImageIndex === thImageIndex||
-    sImageIndex === prefimg || sImageIndex === presimg || sImageIndex === prethimg)
+oldindex=[fImageIndex,sImageIndex,thImageIndex];
 
-       console.log(fImageIndex,sImageIndex,thImageIndex)
-       
-
-  TheImage.allimg
-  firstimage.src = TheImage.allimg[fImageIndex].source;
-  TheImage.allimg[fImageIndex].count++;
-  secandimage.src = TheImage.allimg[sImageIndex].source;
-  TheImage.allimg[sImageIndex].count++;
-  theardimage.src = TheImage.allimg[thImageIndex].source;
-  TheImage.allimg[thImageIndex].count++;
 }
 randerdthreeimg();
 
@@ -145,6 +138,8 @@ function userclick(event) {
       showofimg.push(TheImage.allimg[i].count);
 
     }
+    settingitem()
+
     viewChart();
   }
 }
@@ -185,5 +180,5 @@ function viewChart() {
     options: {}
   });
 
-}
-  // getitem();
+}getitem();
+  
